@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yasuo F｜医療情報技師</title>
+<meta name="description" content="医療情報技師。保健事業の長期財政効果シミュレーターをBuilt with Claude: Japan 2026で開発します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F2F4F1;
+    --ink: #1B2A33;
+    --muted: #56666E;
+    --line: #C9D3D0;
+    --accent: #2F6F8F;
+    --alert: #B8483F;
+    --node: #FFFFFF;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131B20;
+      --ink: #E3EBE9;
+      --muted: #9AABB0;
+      --line: #2E3D44;
+      --accent: #7BB3CF;
+      --alert: #E07A70;
+      --node: #1B262C;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #131B20;
+    --ink: #E3EBE9;
+    --muted: #9AABB0;
+    --line: #2E3D44;
+    --accent: #7BB3CF;
+    --alert: #E07A70;
+    --node: #1B262C;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+    font-size: 16px;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+
+  /* Hero */
+  header { padding: 56px 0 24px; }
+  .role { color: var(--muted); font-size: 15px; margin: 0 0 6px; }
+  h1 { font-size: 40px; line-height: 1.2; margin: 0 0 20px; font-weight: 700; letter-spacing: 0.04em; }
+  .lead { font-size: 22px; line-height: 1.6; font-weight: 500; margin: 0 0 28px; max-width: 30em; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0; padding: 0; list-style: none; font-size: 15px; }
+
+  figure.model { margin: 40px 0 0; padding: 20px 0 8px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  figure.model svg { display: block; width: 100%; height: auto; }
+  figure.model figcaption { color: var(--muted); font-size: 13px; line-height: 1.6; margin-top: 8px; }
+
+  .st { fill: var(--node); stroke: var(--ink); stroke-width: 1.5; }
+  .st-end { fill: var(--node); stroke: var(--alert); stroke-width: 1.5; }
+  .lbl { fill: var(--ink); font-size: 16px; font-weight: 500; text-anchor: middle; dominant-baseline: central; font-family: inherit; }
+  .lbl-end { fill: var(--alert); }
+  .tag { font-size: 12px; text-anchor: middle; font-family: inherit; }
+  .tag-up { fill: var(--accent); }
+  .tag-down { fill: var(--alert); }
+  .better { fill: none; stroke: var(--accent); stroke-width: 2.2; }
+  .worse { fill: none; stroke: var(--alert); stroke-width: 1.4; }
+  .better, .worse { stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw 1s ease-out forwards; }
+  .d2 { animation-delay: .2s; } .d3 { animation-delay: .4s; } .d4 { animation-delay: .8s; } .d5 { animation-delay: 1s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .better, .worse { animation: none; stroke-dashoffset: 0; }
+  }
+
+  /* Sections */
+  section { padding: 48px 0 8px; }
+  h2 { font-size: 24px; line-height: 1.4; margin: 0 0 18px; font-weight: 700; }
+  p { margin: 0 0 16px; }
+  .areas { margin: 8px 0 0; display: grid; grid-template-columns: 7em 1fr; gap: 6px 16px; font-size: 15px; }
+  .areas dt { color: var(--muted); }
+  .areas dd { margin: 0; }
+
+  .work { padding: 20px 0; border-top: 1px solid var(--line); }
+  .work:last-child { border-bottom: 1px solid var(--line); }
+  .work h3 { font-size: 18px; margin: 0 0 4px; font-weight: 700; }
+  .work .kind { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
+  .work p { margin: 0; }
+  .work .more { margin-top: 8px; font-size: 15px; }
+
+  .work-media { display: grid; grid-template-columns: 1fr 168px; gap: 24px; align-items: start; }
+  .shot { margin: 0; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--line); }
+  .shot figcaption { color: var(--muted); font-size: 12px; line-height: 1.5; margin-top: 6px; }
+
+  .project { border-left: 3px solid var(--accent); padding: 4px 0 4px 20px; }
+  .project h3 { font-size: 20px; margin: 0 0 12px; }
+  .need { color: var(--muted); }
+  .src { color: var(--muted); font-size: 13px; line-height: 1.6; }
+  ol.steps { margin: 20px 0; padding-left: 1.4em; }
+  ol.steps li { margin-bottom: 10px; padding-left: 4px; }
+  ol.steps li::marker { color: var(--accent); font-weight: 700; }
+  .scope { margin: 8px 0 16px; display: grid; grid-template-columns: 7em 1fr; gap: 6px 16px; font-size: 15px; }
+  .scope dt { color: var(--muted); }
+  .scope dd { margin: 0; }
+
+  footer { padding: 56px 0 48px; color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 520px) {
+    header { padding-top: 40px; }
+    h1 { font-size: 32px; }
+    .lead { font-size: 19px; }
+    .areas, .scope { grid-template-columns: 1fr; gap: 0; }
+    .areas dd, .scope dd { margin-bottom: 10px; }
+    .work-media { grid-template-columns: 1fr; }
+    .shot { max-width: 200px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="role">医療情報技師</p>
+    <h1>Yasuo F</h1>
+    <p class="lead">医療・ヘルスケアの課題を、Claudeを使って形にしています。Built with Claude: Japan 2026 では、保健事業の効果を10年先まで見通す財政シミュレーターを作ります。</p>
+    <ul class="links">
+      <li><a href="https://github.com/morawysouhiin">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/yasuo-f-b01b91312">LinkedIn</a></li>
+      <li><a href="https://x.com/ofstarion">X</a></li>
+    </ul>
+
+    <figure class="model" aria-label="健常、プレフレイル、フレイル、要介護の4段階と、その間の悪化と改善を表す図">
+      <svg viewBox="0 0 600 210" role="img" aria-hidden="true" focusable="false">
+        <defs>
+          <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
+          </marker>
+          <marker id="aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--alert)"/>
+          </marker>
+        </defs>
+
+        <!-- worsening (top) -->
+        <path class="worse" d="M88,82 Q134,40 180,82" marker-end="url(#aw)"/>
+        <path class="worse d2" d="M234,82 Q280,40 326,82" marker-end="url(#aw)"/>
+        <path class="worse d3" d="M380,82 Q440,36 500,82" marker-end="url(#aw)"/>
+        <text class="tag tag-down" x="134" y="46">悪化</text>
+        <text class="tag tag-down" x="280" y="46">悪化</text>
+        <text class="tag tag-down" x="440" y="42">悪化</text>
+
+        <!-- improvement (bottom) -->
+        <path class="better d4" d="M180,134 Q134,178 88,134" marker-end="url(#ab)"/>
+        <path class="better d5" d="M326,134 Q280,178 234,134" marker-end="url(#ab)"/>
+        <text class="tag tag-up" x="134" y="180">改善</text>
+        <text class="tag tag-up" x="280" y="180">改善</text>
+
+        <!-- states -->
+        <rect class="st" x="16" y="84" width="96" height="48" rx="24"/><text class="lbl" x="64" y="108">健常</text>
+        <rect class="st" x="144" y="84" width="128" height="48" rx="24"/><text class="lbl" x="208" y="108">プレフレイル</text>
+        <rect class="st" x="304" y="84" width="96" height="48" rx="24"/><text class="lbl" x="352" y="108">フレイル</text>
+        <rect class="st-end" x="480" y="84" width="104" height="48" rx="24"/><text class="lbl lbl-end" x="532" y="108">要介護</text>
+      </svg>
+      <figcaption>フレイルの状態は行き来します。予防の取組で下の「改善」の矢印を太くしたとき、何年後に要介護の人数と費用がどれだけ変わるか。ハッカソンでは、それを計算する道具を作ります。</figcaption>
+    </figure>
+  </header>
+
+  <section aria-labelledby="about">
+    <h2 id="about">About</h2>
+    <p>医療情報技師と応用情報技術者の知識を土台に、医療データとシステムの両面から現場の課題を見ています。フリーランスで医療・ヘルスケア領域の新規事業開発に取り組み、Stanford Biodesignの手法で現場のニーズを探し、アイディアの検証から事業化の判断までを一人で回せるよう、Claudeを使って仕組み化してきました。</p>
+    <dl class="areas">
+      <dt>資格</dt><dd>医療情報技師、応用情報技術者</dd>
+      <dt>規格</dt><dd>JIS T 2304（ソフトウェアライフサイクル）、JIS T 81001-5-1（ヘルスソフトウェアのセキュリティ）</dd>
+      <dt>関心領域</dt><dd>老化、糖化、慢性腎臓病</dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="built">
+    <h2 id="built">AIで作ったもの</h2>
+
+    <article class="work work-media">
+      <div>
+        <h3>anchorLog</h3>
+        <p class="kind">iOSアプリ（開発中）</p>
+        <p>気分を「不安 −10 〜 肯定感 +10」のスライダー、「きもち」と「できごと」のラベル、音声入力のメモで記録するiOSアプリ。Apple Watchのバイタルデータと合わせて、気分の変動を読み解くアルゴリズムを開発しています。</p>
+      </div>
+      <figure class="shot">
+        <img src="anchorlog.png" width="600" height="1304" loading="lazy"
+             alt="anchorLogの記録画面。中央に不安−10から肯定感+10までの縦スライダー、左にきもちのラベル、右にできごとのラベル、下に自由記述欄と記録ボタンがある">
+        <figcaption>記録画面（開発中の実機）</figcaption>
+      </figure>
+    </article>
+
+    <article class="work">
+      <h3>idea-validation-flow</h3>
+      <p class="kind">Claudeスキル群</p>
+      <p>医療・ヘルスケアのアイディアを、撤退基準・結果を最も左右するパラメータ・未確認事実のログという3つの軸で検証するスキル。これまで約20件のアイディア検証に使ってきました。テーマの発案、関係者へのヒアリング項目づくり、検証結果のHTML化まで、前後の工程も別スキルとして揃えています。</p>
+      <!-- 公開できるリポジトリや出力例があれば、次の行のコメントを外してURLを入れる -->
+      <!-- <p class="more"><a href="https://github.com/morawysouhiin/ここにリポジトリ名">GitHubで見る</a></p> -->
+    </article>
+
+    <article class="work">
+      <h3>責任分界点の設計スキル</h3>
+      <p class="kind">Claudeスキル</p>
+      <p>システム同士、医療機関とベンダー、クラウド事業者の間の連携について、データの引き渡し点ごとに起こりうる障害を洗い出し、事前に決めておくべき責任範囲を表と全体図にまとめます。</p>
+      <!-- <p class="more"><a href="https://github.com/morawysouhiin/ここにリポジトリ名">GitHubで見る</a></p> -->
+    </article>
+  </section>
+
+  <section aria-labelledby="hackathon">
+    <h2 id="hackathon">Built with Claude: Japan 2026 で作るもの</h2>
+    <div class="project">
+      <h3>保健事業の長期財政効果シミュレーター</h3>
+      <p class="need">市町村や事業者がフレイル予防などの保健事業を企画するとき、「何年後に、いくら医療費・介護費が変わるか」を示す必要があります。ところが介護費の差は年を追うごとに広がるため、契約期間の1〜5年だけで評価すると効果を大きく見落とします。成果連動型の契約（PFS）に取り組む自治体への内閣府の調査でも、約8割が「適正な成果指標・評価方法の設定が困難」を課題の最多に挙げ、医療費削減のような本来の成果を短期間で確認できないことが、支払条件を決める難しさの理由として挙がっています。</p>
+      <p class="src">出典：<a href="https://www8.cao.go.jp/pfs/questionnaire_201902.pdf">内閣府「成果連動型民間委託契約に係るアンケート調査の結果について」（2019年、PFSに取り組む34自治体が対象）</a></p>
+      <ol class="steps">
+        <li>事業の内容（対象者、期間、1人あたりの費用、期待する効果）を文章で入力する</li>
+        <li>Claudeが状態の移り変わり、状態ごとの医療費・介護費、効果の大きさを出典付きで提案し、根拠のない値には印を付ける</li>
+        <li>確認したモデルを検証できる計算コードで10年先まで計算し、年ごとの差額、投資の回収時期、感度分析を出す</li>
+        <li>PFSで使う成果指標と支払上限額の案、予算説明用の文章を作る</li>
+      </ol>
+      <p>病気ごとの状態・費用・効果を部品として差し替えられる作りにします。計算はコードが担い、Claudeはモデルの構造と根拠と説明を担います。</p>
+      <dl class="scope">
+        <dt>必ず動かす</dt><dd>フレイルのモデルで、手順1〜3を最後まで通す</dd>
+        <dt>余力で広げる</dt><dd>手順4（PFS案・予算説明文）と腎症のモデルの追加</dd>
+      </dl>
+    </div>
+  </section>
+
+  <footer>
+    <p>連絡は <a href="https://x.com/ofstarion">X</a> または <a href="https://www.linkedin.com/in/yasuo-f-b01b91312">LinkedIn</a> からどうぞ。<br>このページはClaudeと作りました。</p>
+  </footer>
+
+</div>
+</body>
+</html>
